@@ -1,3 +1,4 @@
 .history
 .env
 static/*
+**/__pycache__/

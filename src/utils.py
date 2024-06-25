@@ -15,7 +15,7 @@ def create_self_signed_cert(cert_file, key_file):
     cert.get_subject().L = "Cologne"
     cert.get_subject().O = "MyCompany"
     cert.get_subject().OU = "MyDivision"
-    cert.get_subject().CN = "localhost"
+    cert.get_subject().CN = "threads-sample.meta"
     cert.set_serial_number(1000)
     cert.gmtime_adj_notBefore(0)
     cert.gmtime_adj_notAfter(365*24*60*60)

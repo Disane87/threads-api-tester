@@ -9,56 +9,52 @@ def setup_routes(app, config, threadsAPI: ThreadAPI):
     @app.route('/callback')
     def auth():
         config.received_code = request.args.get('code')
-        threadsAPI.set_auth_code(config.received_code)
+        threadsAPI.set_auth_code(str(config.received_code))
 
         return render_template('auth.html')
 
     @app.route('/tokens', methods=['GET', 'POST'])
     def tokens():          
 
-        match request.method:
-            case 'GET':
-                short_lived_access_token = threadsAPI.get_short_lived_access_token()
-                if type(short_lived_access_token) is not str:
-                    response = make_response(short_lived_access_token['error'], 200) # type: ignore
-                    response.mimetype = "text/plain"
-                    return response
+        if request.method == 'POST':
+            if 'image_url' in request.form and 'account_id' in request.form:
+                image_url = request.form['image_url']
+                caption = request.form.get('caption', '')
+
+                response = threadsAPI.upload_image(image_url, caption)
+                if response.get('error'):
+                    print(f"Error uploading image: {response['error']}")
+                
+        short_lived_access_token = threadsAPI.get_short_lived_access_token()
+        if type(short_lived_access_token) is not str:
+            response = make_response(short_lived_access_token['error'], 200) # type: ignore
+            response.mimetype = "text/plain"
+            return response
+    
+        long_lived_access_token = threadsAPI.get_long_lived_access_token()
+        if type(long_lived_access_token) is not str:
+            response = make_response(long_lived_access_token['error'], 200) # type: ignore
+            response.mimetype = "text/plain"
+            return response
+
+        accounts = {}
+        media_data = threadsAPI.get_recent_posts()
+        accounts[threadsAPI.USER_ID] = {
+            'media':  media_data.get('data', []),
+            'info': threadsAPI.USER_ID
+        }
+
+        user = threadsAPI.get_user_info()
+
+        return render_template('tokens.html', 
+            accounts=accounts, 
+            short_lived_token_response=short_lived_access_token,
+            long_lived_token_response=long_lived_access_token,
+            code=threadsAPI.AUTH_CODE,
+            user=user
+        )
             
-                long_lived_access_token = threadsAPI.get_long_lived_access_token()
-                if type(long_lived_access_token) is not str:
-                    response = make_response(long_lived_access_token['error'], 200) # type: ignore
-                    response.mimetype = "text/plain"
-                    return response
-
-                accounts = {}
-                media_data = threadsAPI.get_recent_posts()
-                accounts[threadsAPI.USER_ID] = {
-                    'media':  media_data.get('data', []),
-                    'info': threadsAPI.USER_ID
-                }
-
-
-                return render_template('tokens.html', 
-                    accounts=accounts, 
-                    short_lived_token_response=threadsAPI.SHORT_LIVED_TOKEN,
-                    long_lived_token_response=threadsAPI.LONG_LIVED_TOKEN,
-                    code=threadsAPI.AUTH_CODE,
-                    user={
-                        "id": threadsAPI.USER_ID,
-                        "name": "user.get('name', '')", 
-                        "picture": "user.get('picture', '')",
-                    }
-                )
-            
-            case 'POST':
-                if 'image_url' in request.form and 'account_id' in request.form:
-                    image_url = request.form['image_url']
-                    caption = request.form.get('caption', '')
-                    account_id = request.form['account_id']
-
-                    response = threadsAPI.upload_image(image_url, caption)
-                    if response.get('error'):
-                        print(f"Error uploading image: {response['error']}")
+                
             
         
         
