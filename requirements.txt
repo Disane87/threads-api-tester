@@ -26,6 +26,6 @@ referencing==0.35.1
 requests==2.31.0
 rpds-py==0.18.1
 soupsieve==2.5
-urllib3==2.0.6
+urllib3==2.2.2
 virtualenv==20.25.1
 Werkzeug==3.0.3
