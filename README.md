@@ -33,8 +33,13 @@ python ./main.py
 
 Or if you use Visual Studio Code, hit `F5`.
 
+> [!IMPORTANT]  
+> Never share these access tokens with anyone! This script runs only on your end and your tokens will never leave your system, only when you do!
+
+
 ## The result
 After a getting the auth code to the callback endpoint you should see this page:
 ![Example Page](./docs/example_page.jpeg "Example Page")
 
 You also have the ability to post a test post to ensure everything is working.
+
