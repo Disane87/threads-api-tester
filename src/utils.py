@@ -12,7 +12,7 @@ def create_self_signed_cert(cert_file, key_file):
     cert = crypto.X509()
     cert.get_subject().C = "DE"
     cert.get_subject().ST = "NRW"
-    cert.get_subject().L = "Viersen"
+    cert.get_subject().L = "Cologne"
     cert.get_subject().O = "MyCompany"
     cert.get_subject().OU = "MyDivision"
     cert.get_subject().CN = "localhost"

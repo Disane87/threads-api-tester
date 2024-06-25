@@ -21,6 +21,7 @@ platformdirs==4.2.0
 pycparser==2.22
 pyOpenSSL==24.1.0
 python-dotenv==1.0.1
+PyYAML==6.0.1
 referencing==0.35.1
 requests==2.31.0
 rpds-py==0.18.1
