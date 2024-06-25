@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authorization Received</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script>
+        setTimeout(() => {
+            window.location.href = "/tokens";
+        }, 5000); // 10 seconds
+    </script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center h-screen">
+    <div class="bg-white shadow-md rounded p-6">
+        <h2 class="text-2xl font-bold mb-5">Authorization code received.</h2>
+        <p>You will be redirected to the tokens page in 5 seconds...</p>
+    </div>
+</body>
+</html>
