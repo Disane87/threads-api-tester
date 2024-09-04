@@ -6,7 +6,7 @@ cffi==1.16.0
 charset-normalizer==3.3.0
 click==8.1.7
 colorama==0.4.6
-cryptography==42.0.7
+cryptography==43.0.1
 distlib==0.3.8
 filelock==3.13.1
 Flask==3.0.3
