@@ -43,3 +43,9 @@ After a getting the auth code to the callback endpoint you should see this page:
 
 You also have the ability to post a test post to ensure everything is working.
 
+
+---
+
+<p align="center">
+  Made by me at <a href="https://subthiel.eu/softwareentwicklung">Subthiel</a> — software development &amp; 3D printing
+</p>
